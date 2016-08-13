@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Recipes :: Omellete</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="bootstrap.css" rel="stylesheet">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Custom CSS -->
+    <link href="business-frontpage.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <ul class="nav navbar-nav">
+                    <li>
+                        <a class="navbar-brand" href="#">Recipes</a>
+                    </li>
+                    <li>
+                        <a href="#"><input type="text" name="search" placeholder="Search.."></a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Image Background Page Header -->
+    <!-- Note: The background image is set within the business-casual.css file. -->
+        <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-2">
+                <img src="egg.JPG" alt="egg" style="width:304px;height:228px;">
+            </div>
+            <div class="col-sm-4">
+                <h2 align="center">Ham and Mustard Omelette</h2>
+                <br>
+                <a class="" href="#" style="margin-left:40%;"></a>
+                <br>
+                <br>
+                <address>
+                    5.0 / 5.0
+                    <br>
+                    Approx. 7 min cook time        Difficulty - Easy
+                </address>
+                <div class="col-md-6" id="contentRecog">
+                    <div class="row">
+                      <div class="allowM">
+                          <button type="button" class="btn btn-warning btn-md" onclick="voiceDev()" data-toggle="modal" data-target="#myModal"><img id="allowChat" src="chat.png" height="30px" width="40px" />Start Assistance
+
+                          </button>
+                          <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Recipe Assistance</h4>
+                            </div>
+                            <div class="modal-body">
+                              <p id = "start">Starting.......</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                      </div>
+                      <div class="disableM">
+                          <button type="button" class="btn btn-warning btn-md" id = "disable"><img id="notallowChat" src="chat.png" height="30px" width="40px" />Stop Assistance</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+            <div class="row">
+     <div class="col-sm-4 col-sm-offset-2"> <h2> Things You'll Need </h2> </div> </div>
+    <!-- Page Content -->
+    <div class="container">
+
+
+
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-2">
+                <h3>Ingredients <a class="btn btn-warning btn-md" href="#">Save List</a> </h3>
+                <hr>
+                <ul style=" line-height: 40px; list-style-type:none; list-style-position:outside;">
+                <li>3 eggs</li>
+                <li>A pinch of salt</li>
+                <li>A pinch of ground black pepper</li>
+                <li>1 tablespoon of water</li>
+                <li>2 tablespoons of butter</li>
+                <li>2 teaspoons of mustard</li>
+                <li>1 tablespoon of sour cream</li>
+                <li>1 ounce chopped ham</li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <h3>Utensils <a class="btn btn-warning btn-md" href="#">Save List</a> </h3>
+                <hr>
+                <ul style=" line-height: 40px; list-style-type:none; list-style-position:outside;">
+                <li>Frying Pan</li>
+                <li>Medium sized bowl</li>
+                <li>Egg beater</li>
+                <li>Wooden spoon or spatula</li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+        <div class="row">
+             <div class="col-sm-4 col-sm-offset-2">
+                <h2>Health info  </h2>
+                <hr>
+                <p>
+                518 calories
+                </p>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="recipie.js"></script>
+</body>
+
+</html>
