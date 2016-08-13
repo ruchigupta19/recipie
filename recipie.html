@@ -8,108 +8,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel = "stylesheet" href = "recipie.css">
+<script src="recipie.js"></script>
 
-  <script>
-    function voiceDev(){
-        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-
-        var contentRecog = document.getElementById("contentRecog");
-        if (document.getElementById('resultsDiv')) {
-            document.getElementById('resultsDiv').remove();
-        }
-
-        var results = document.createElement('div');
-        results.setAttribute('id', 'resultsDiv');
-
-        var status = document.createElement('div');
-        status.innerHTML = 'Not Listening.';
-        results.appendChild(status);
-
-        var speechResult = document.createElement("div");
-        speechResult.innerHTML = '';
-        speechResult.className = "speech";
-        results.appendChild(speechResult);
-
-        contentRecog.appendChild(results);
-
-        var alternativesDebug = document.createElement("div");
-        alternativesDebug.innerHTML = '';
-        alternativesDebug.className = "alternatives";
-        document.body.appendChild(alternativesDebug);
-
-        if (!SpeechRecognition) {
-            status.innerHTML = "No Speech Capabilities Found";
-        } else {
-            var recognition = new SpeechRecognition();
-            recognition.lang = 'en-US';
-            recognition.interimResults = true;
-            recognition.continuous = true;
-            recognition.maxAlternatives = 1;
-
-
-            document.getElementById("disable").onclick = function () {
-                document.getElementById('allowChat').src='chat.png';
-                recognition.stop();
-                status.innerHTML = 'No Longer Listening.';
-            }
-
-            recognition.onnomatch = function (event) {
-                console.log("Did not recognize");
-            };
-
-            recognition.onstart = function () {
-                status.className = "status";
-                status.innerHTML = "Listening....";
-            };
-
-            recognition.onresult = function (event) {
-                for (var i = event.resultIndex; i < event.results.length; ++i) {
-                    var result = event.results[i];
-                    if(result[0].transcript == 'pizza' || result[0].transcript == 'Pizza' ){
-                      var recipes = result[0].transcript;
-                      recipes = recipes.toLowerCase().trim();
-                      var commandArray = recipes.split(' ');
-                      var length = commandArray.length;
-
-
-                      $.ajax({
-                          method: "GET",
-                          url: "http://recipio.herokuapp.com/recipes",
-                          data: {
-                            recipe: commandArray[length - 1]
-                          }
-                        })
-                        .done(function(msg) {
-                          console.log(msg);
-                        });
-                    }
-                    if (result.isFinal) {
-                        speechResult.innerHTML = "Speech Result (final): " + result[0].transcript;
-                    } else {
-                        speechResult.innerHTML = "Speech Result (in progress): " + result[0].transcript;
-                    }
-
-                    // var alternatives = [];
-                    // for (var j = 1; j < result.length; ++j) {
-                    //     alternatives.push(result[j].transcript);
-                    // }
-                    // alternativesDebug.innerHTML = alternatives.join('<br>');
-                }
-            };
-
-            recognition.onerror = function (event) {
-                status.innerHTML = 'Error.';
-            };
-            recognition.onend = function () {
-                status.innerHTML = 'No Longer Listening.';
-            };
-
-            recognition.start();
-        }
-    }
-
-
-  </script>
 </head>
 <body>
 
@@ -128,43 +28,45 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-brand" href="recipie.html">Recipe.io</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
+        <li class="active"><a href="#">Category</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Favourite Dishes <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="omlette.html">Omlette</a></li>
+            <li><a href="#">Hamburger</a></li>
+            <li><a href="#">Beef Buritto</a></li>
             <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="#">Italian Pizza</a></li>
             <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="#">Thai Jasmine</a></li>
           </ul>
         </li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" class="form-control" placeholder="Search Recipe">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
+        <li><a href="#">Welcome</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jacob <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+
+            <li><a href="#">Profile</a></li>
             <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="#">jacob@gmail.com</a></li>
+            <li><a href="#">+1 617 870 8657</a></li>
+            <li><a href="#">Boston, MA</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Logout</a></li>
           </ul>
         </li>
       </ul>
@@ -175,56 +77,56 @@
 <div class="container">
 <!-- row 1-->
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-4" id = "img1">
       <img src = "Images/baked-stuffed-lobster-1.jpg" />
-      <h3>Baked-Stuffted-lobster</h3>
+      <h3>Baked Stuffted lobster</h3>
 
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4" id = "img2">
       <img src = "Images/beef-burrito.jpg" />
-      <h3>beef-burrito</h3>
+      <h3>Beef-Burrito</h3>
 
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4" id = "img3">
       <img src = "Images/cropped-french_macarons.jpg" />
-      <h3>cropped-french_macarons</h3>
+      <h3>Cropped French Macarons</h3>
 
     </div>
   </div>
 <!-- row 2-->
   <div class="row">
-    <div class="col-sm-4" id="img">
+    <div class="col-sm-4" id="img4">
       <img src = "Images/omlette.jpg" />
-      <h3>Column 1</h3>
+      <h3>Omlette</h3>
 
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4" id = "img5">
       <img src = "Images/italian.jpg" />
-      <h3>Column 2</h3>
+      <h3>Italian Pizza</h3>
 
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4" id = "img6">
       <img src = "Images/rainbow.jpg" />
-      <h3>Column 3</h3>
+      <h3>Rainbow Salad</h3>
 
     </div>
   </div>
 
   <!-- row 3-->
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-4" id = "img7">
         <img src = "Images/thai.jpg" />
-        <h3>Column 1</h3>
+        <h3>Thai Jasmine</h3>
 
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4" id = "img8">
         <img src = "Images/ham.jpg" />
-        <h3>Column 2</h3>
+        <h3>Hamburger</h3>
 
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4" id = "img9">
         <img src = "Images/slide.jpg" />
-        <h3>Column 3</h3>
+        <h3>Slide cheese</h3>
 
       </div>
     </div>

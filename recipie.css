@@ -19,14 +19,39 @@ li.dropdown:hover > .dropdown-menu {
 h3{
 
     position: relative;
-    top: -30px;
+    top: -35px;
     color:white;
+    left: 15px;
+
 }
 
 #img4{
   position: relative;
-  top: -30px;
+  top: -60px;
 }
+
+#img5{
+  position: relative;
+  top: -10px;
+}
+
+#img6{
+  position: relative;
+  top: -90px;
+}
+#img7{
+  position: relative;
+  top: -70px;
+}
+#img8{
+  position: relative;
+  top: -70px;
+}
+#img9{
+  position: relative;
+  top: -130px;
+}
+
 
 #navbar_header{
     margin-top: -30px;
@@ -37,3 +62,25 @@ img{
 max-height:100%;
 float: left;
 }
+#img1 { transition: all .2s ease-in-out; }
+#img1:hover { transform: scale(1.1); }
+#img2 { transition: all .2s ease-in-out; }
+#img2:hover { transform: scale(1.1); }
+
+#img3 { transition: all .2s ease-in-out; }
+#img3:hover { transform: scale(1.1); }
+#img4 { transition: all .2s ease-in-out; }
+#img4:hover { transform: scale(1.1); }
+
+#img5 { transition: all .2s ease-in-out; }
+#img5:hover { transform: scale(1.1); }
+#img6 { transition: all .2s ease-in-out; }
+#img6:hover { transform: scale(1.1); }
+
+#img7 { transition: all .2s ease-in-out; }
+#img7:hover { transform: scale(1.1); }
+#img8 { transition: all .2s ease-in-out; }
+#img8:hover { transform: scale(1.1); }
+
+#img9 { transition: all .2s ease-in-out; }
+#img9:hover { transform: scale(1.1); }
