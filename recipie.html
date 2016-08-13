@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel = "stylesheet" href = "recipie.css">
+
+  <script>
+    function voiceDev(){
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+
+        var contentRecog = document.getElementById("contentRecog");
+        if (document.getElementById('resultsDiv')) {
+            document.getElementById('resultsDiv').remove();
+        }
+
+        var results = document.createElement('div');
+        results.setAttribute('id', 'resultsDiv');
+
+        var status = document.createElement('div');
+        status.innerHTML = 'Not Listening.';
+        results.appendChild(status);
+
+        var speechResult = document.createElement("div");
+        speechResult.innerHTML = '';
+        speechResult.className = "speech";
+        results.appendChild(speechResult);
+
+        contentRecog.appendChild(results);
+
+        var alternativesDebug = document.createElement("div");
+        alternativesDebug.innerHTML = '';
+        alternativesDebug.className = "alternatives";
+        document.body.appendChild(alternativesDebug);
+
+        if (!SpeechRecognition) {
+            status.innerHTML = "No Speech Capabilities Found";
+        } else {
+            var recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.interimResults = true;
+            recognition.continuous = true;
+            recognition.maxAlternatives = 1;
+
+
+            document.getElementById("disable").onclick = function () {
+                document.getElementById('allowChat').src='chat.png';
+                recognition.stop();
+                status.innerHTML = 'No Longer Listening.';
+            }
+
+            recognition.onnomatch = function (event) {
+                console.log("Did not recognize");
+            };
+
+            recognition.onstart = function () {
+                status.className = "status";
+                status.innerHTML = "Listening....";
+            };
+
+            recognition.onresult = function (event) {
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    var result = event.results[i];
+                    if(result[0].transcript == 'pizza' || result[0].transcript == 'Pizza' ){
+                      var recipes = result[0].transcript;
+                      recipes = recipes.toLowerCase().trim();
+                      var commandArray = recipes.split(' ');
+                      var length = commandArray.length;
+
+
+                      $.ajax({
+                          method: "GET",
+                          url: "http://recipio.herokuapp.com/recipes",
+                          data: {
+                            recipe: commandArray[length - 1]
+                          }
+                        })
+                        .done(function(msg) {
+                          console.log(msg);
+                        });
+                    }
+                    if (result.isFinal) {
+                        speechResult.innerHTML = "Speech Result (final): " + result[0].transcript;
+                    } else {
+                        speechResult.innerHTML = "Speech Result (in progress): " + result[0].transcript;
+                    }
+
+                    // var alternatives = [];
+                    // for (var j = 1; j < result.length; ++j) {
+                    //     alternatives.push(result[j].transcript);
+                    // }
+                    // alternativesDebug.innerHTML = alternatives.join('<br>');
+                }
+            };
+
+            recognition.onerror = function (event) {
+                status.innerHTML = 'Error.';
+            };
+            recognition.onend = function () {
+                status.innerHTML = 'No Longer Listening.';
+            };
+
+            recognition.start();
+        }
+    }
+
+
+  </script>
+</head>
+<body>
+
+<div class="jumbotron text-center" style="height: 150px;">
+  <h1 id="header">Voice Your Recipie</h1>
+
+</div>
+<div class="fluid" id = "navbar_header">
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</div>
+<div class="container">
+<!-- row 1-->
+  <div class="row">
+    <div class="col-sm-4">
+      <img src = "Images/baked-stuffed-lobster-1.jpg" />
+      <h3>Baked-Stuffted-lobster</h3>
+
+    </div>
+    <div class="col-sm-4">
+      <img src = "Images/beef-burrito.jpg" />
+      <h3>beef-burrito</h3>
+
+    </div>
+    <div class="col-sm-4">
+      <img src = "Images/cropped-french_macarons.jpg" />
+      <h3>cropped-french_macarons</h3>
+
+    </div>
+  </div>
+<!-- row 2-->
+  <div class="row">
+    <div class="col-sm-4" id="img">
+      <img src = "Images/omlette.jpg" />
+      <h3>Column 1</h3>
+
+    </div>
+    <div class="col-sm-4">
+      <img src = "Images/italian.jpg" />
+      <h3>Column 2</h3>
+
+    </div>
+    <div class="col-sm-4">
+      <img src = "Images/rainbow.jpg" />
+      <h3>Column 3</h3>
+
+    </div>
+  </div>
+
+  <!-- row 3-->
+    <div class="row">
+      <div class="col-sm-4">
+        <img src = "Images/thai.jpg" />
+        <h3>Column 1</h3>
+
+      </div>
+      <div class="col-sm-4">
+        <img src = "Images/ham.jpg" />
+        <h3>Column 2</h3>
+
+      </div>
+      <div class="col-sm-4">
+        <img src = "Images/slide.jpg" />
+        <h3>Column 3</h3>
+
+      </div>
+    </div>
+
+</div>
+
+
+<div class="col-md-6" id="contentRecog">
+    <div class="row">
+      <div class="allowM">
+          <button type="button" class="btn btn-primary" onclick="voiceDev()"><img id="allowChat" src="chat.png" height="30px" width="40px" />Allow Access to
+              the Microphone
+          </button>
+      </div>
+      <div class="disableM">
+          <button type="button" class="btn btn-primary" id = "disable"><img id="notallowChat" src="chat.png" height="30px" width="40px" />Stop Accessing the Microphone</button>
+      </div>
+    </div>
+</div>
+</body>
+</html>
